@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+
+# PyInstaller build artifacts
+build/
+dist/
+
+# Unrelated source copies
+For OpenCode/
+pywinstyles/
+
+# Editor / OS
+.idea/
+.vscode/
+*.lnk
+Thumbs.db
