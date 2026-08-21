@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import asyncio
 
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from PyQt6.QtGui import QColor
@@ -101,6 +102,12 @@ class CloneWorker(QThread):
     def run(self):
         set_log_callback(self._on_log)
         cloner_module.logs_enabled = self.logs_enabled
+        # discord.py 1.7.3 calls asyncio.get_event_loop() in this thread;
+        # on Python 3.12 a fresh thread has none, so create/set one first.
+        try:
+            asyncio.get_event_loop()
+        except RuntimeError:
+            asyncio.set_event_loop(asyncio.new_event_loop())
         try:
             client = Client(intents=Intents.all())
 
